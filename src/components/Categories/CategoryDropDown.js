@@ -58,4 +58,3 @@ const CategoryDropDown = props => {
 };
 
 export default CategoryDropDown;
-
