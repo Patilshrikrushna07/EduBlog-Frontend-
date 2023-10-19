@@ -252,5 +252,3 @@ const categorySlices = createSlice({
 });
 
 export default categorySlices.reducer;
-
-

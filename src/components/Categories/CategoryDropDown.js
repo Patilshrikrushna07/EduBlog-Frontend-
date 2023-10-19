@@ -4,39 +4,28 @@ import Select from "react-select";
 import { fetchCategoriesAction } from "../../redux/slices/category/categorySlice";
 
 const options = [
-  { label: 'JavaScript', value: 'javascript' },
-  { label: 'Python', value: 'python' },
-  { label: 'Java', value: 'java' },
-  { label: 'C++', value: 'c++' },
-  { label: 'Ruby', value: 'ruby' },
-  { label: 'HTML/CSS', value: 'html-css' },
-  { label: 'PHP', value: 'php' },
-  { label: 'Swift', value: 'swift' },
-  { label: 'React', value: 'react' },
-  { label: 'Node.js', value: 'nodejs' },
-  { label: 'Next.js', value: 'nextjs' },
-
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
 ];
 
 const CategoryDropDown = props => {
+  //dispatch action
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCategoriesAction());
+  }, [dispatch]);
   //select categories
-
-  
-  
-  
-  const category = [
-    { label: 'JavaScript', value: 'javascript' },
-    { label: 'Python', value: 'python' },
-    { label: 'Java', value: 'java' },
-    { label: 'C++', value: 'c++' },
-    { label: 'Ruby', value: 'ruby' },
-    { label: 'HTML/CSS', value: 'html-css' },
-    { label: 'PHP', value: 'php' },
-    { label: 'Swift', value: 'swift' },
-    { label: 'React', value: 'react' },
-    { label: 'Node.js', value: 'nodejs' }
-  ];
+  const category = useSelector(state => state?.category);
   const { categoryList, loading, appErr, serverErr } = category;
+
+  const allCategories = categoryList?.map(category => {
+    return {
+      label: category?.title,
+      value: category?._id,
+    };
+  });
+
   //handleChange
   const handleChange = value => {
     props.onChange("category", value);
@@ -56,7 +45,7 @@ const CategoryDropDown = props => {
           onChange={handleChange}
           onBlur={handleBlur}
           id="category"
-          options={category}
+          options={allCategories}
           value={props?.value?.label}
         />
       )}
@@ -69,3 +58,4 @@ const CategoryDropDown = props => {
 };
 
 export default CategoryDropDown;
+
